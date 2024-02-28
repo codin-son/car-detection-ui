@@ -6,9 +6,10 @@ import PolygonROIPanel from "./PolygonROIPanel";
 const VideoPanel = () => {
   const videoCanvasRef = useRef(null);
   const apiUrl = import.meta.env.PUBLIC_API_URL;
-  const urlBig = apiUrl+"/detection";
+  const urlBig = apiUrl + "/detection";
 
-  const [issetroi, setissetroi] = useState(false);
+  const [issetLine, setissetLine] = useState(false);
+  const [issetPoly, setissetPoly] = useState(false);
   const [getcw, setgetcw] = useState(0);
   const [getch, setgetch] = useState(0);
 
@@ -18,8 +19,12 @@ const VideoPanel = () => {
     imageBig.crossOrigin = "anonymous";
   }
 
-  const startSetROI = () => {
-    setissetroi(true);
+  const startSetLine = () => {
+    setissetLine(true);
+  };
+
+  const startSetPoly = () => {
+    setissetPoly(true);
   };
 
   useEffect(() => {
@@ -69,21 +74,23 @@ const VideoPanel = () => {
         <GridVidPanel
           cw={getcw}
           ch={getch}
-          issetroi={issetroi}
-          setissetroi={setissetroi}
+          issetLine={issetLine}
+          setissetLine={setissetLine}
+          issetPoly={issetPoly}
+          setissetPoly={setissetPoly}
         />
         <PolygonROIPanel
-        cw={1280}
-        ch={720}
-        issetroi={issetroi}
-        setissetroi={setissetroi} // Pass setissetroi as a prop here
-         />
-        {/* <LineROIPanel
           cw={1280}
           ch={720}
-          issetroi={issetroi}
-          setissetroi={setissetroi} // Pass setissetroi as a prop here
-        /> */}
+          issetPoly={issetPoly}
+          setissetPoly={setissetPoly} // Pass setissetLine as a prop here
+        />
+        <LineROIPanel
+          cw={1280}
+          ch={720}
+          issetLine={issetLine}
+          setissetLine={setissetLine} // Pass setissetLine as a prop here
+        />
         <canvas
           className="rounded-lg mb-5"
           ref={videoCanvasRef}
@@ -93,12 +100,20 @@ const VideoPanel = () => {
       </div>
       <div className="flex flex-row gap-2">
         <button
+          className="btn btn-primary setLine"
+          id="setLine"
+          onClick={startSetLine}
+          disabled={issetLine} // Add this line
+        >
+          Set Line
+        </button>
+        <button
           className="btn btn-primary addroi"
           id="addROI"
-          onClick={startSetROI}
-          disabled={issetroi} // Add this line
+          onClick={startSetPoly}
+          disabled={issetLine} // Add this line
         >
-          Set ROI
+          Set Polygon
         </button>
         <SwapCamBtn />
       </div>

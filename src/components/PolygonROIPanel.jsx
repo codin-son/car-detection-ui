@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 
-const PolygonROIPanel = ({ issetroi, setissetroi }) => {
+const PolygonROIPanel = ({ issetPoly, setissetPoly }) => {
   const polygoncanvasref = useRef(null);
   const [points, setPoints] = useState([]);
   const [mousePos, setMousePos] = useState(null);
@@ -9,10 +9,10 @@ const PolygonROIPanel = ({ issetroi, setissetroi }) => {
   const apiUrl = import.meta.env.PUBLIC_API_URL;
 
   const handleClick = (e) => {
-    if (!isDrawing && !issetroi){
+    if (!isDrawing && !issetPoly){
       return;
     };
-    if(issetroi){
+    if(issetPoly){
       const rect = polygoncanvasref.current.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
@@ -31,7 +31,7 @@ const PolygonROIPanel = ({ issetroi, setissetroi }) => {
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
       setIsDrawing(false);
-      setissetroi(false);
+      setissetPoly(false);
     }
   };
 

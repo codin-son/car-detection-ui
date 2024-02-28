@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
-const LineROIPanel = ({ cw, ch, issetroi, setissetroi }) => {
+const LineROIPanel = ({ cw, ch, issetline, setissetline }) => {
     const linecanvasref = useRef(null);
     const [line, setLine] = useState({ start: null, end: null });
     const [hasDrawn, setHasDrawn] = useState(false);
@@ -37,7 +37,7 @@ const LineROIPanel = ({ cw, ch, issetroi, setissetroi }) => {
     };
 
     const handleMouseMove = (e) => {
-        if (!issetroi || hasDrawn) {
+        if (!issetline || hasDrawn) {
             return;
         }
         const rect = linecanvasref.current.getBoundingClientRect();
@@ -52,7 +52,7 @@ const LineROIPanel = ({ cw, ch, issetroi, setissetroi }) => {
     };
 
     const handleClick = (e) => {
-        if (!issetroi || hasDrawn) {
+        if (!issetline || hasDrawn) {
             return;
         }
         const rect = linecanvasref.current.getBoundingClientRect();
@@ -72,7 +72,7 @@ const LineROIPanel = ({ cw, ch, issetroi, setissetroi }) => {
             setLine({ start: null, end: null });
             setHasDrawn(true);
             setIsDrawing(true);
-            setissetroi(false);
+            setissetline(false);
         }
     };
 
@@ -82,7 +82,7 @@ const LineROIPanel = ({ cw, ch, issetroi, setissetroi }) => {
         return () => {
             canvas.removeEventListener("mousemove", handleMouseMove);
         };
-    }, [issetroi, hasDrawn, line]);
+    }, [issetline, hasDrawn, line]);
     return (
         <canvas
             className="rounded-lg mb-5"

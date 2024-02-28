@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-const GridVidPanel = ({cw,ch, issetroi}) => {
+const GridVidPanel = ({cw,ch, issetLine, issetPoly}) => {
   const gridCanvasRef = useRef(null);
   useEffect(() =>{
     const gridContext = gridCanvasRef.current.getContext("2d"); // Get context of new canvas
-    if(issetroi){
-      if(issetroi){
+    if(issetLine | issetPoly){
+      if(issetLine | issetPoly){
         gridCanvasRef.current.style.cursor = "crosshair"
       }
       gridContext.clearRect(0, 0, cw, ch);
@@ -21,12 +21,12 @@ const GridVidPanel = ({cw,ch, issetroi}) => {
       }
       gridContext.stroke();
     }
-    else if(!issetroi){
+    else if(!issetLine | !issetPoly){
       // clear the canvas
       gridContext.clearRect(0, 0, cw, ch);
     }
   
-  },[issetroi])
+  },[issetLine, issetPoly])
 
   return (
     <canvas
