@@ -15,7 +15,7 @@ const LineROIPanel = ({ cw, ch, issetroi, setissetroi }) => {
 
     useEffect(() => {
         if(isDrawing){
-            axios.get(`http://127.0.0.1:9099/set-roi?start_x=${startX}&start_y=${startY}&end_x=${endX}&end_y=${endY}`)
+            axios.get(apiUrl+`/set-roi?start_x=${startX}&start_y=${startY}&end_x=${endX}&end_y=${endY}`)
             .then((response) => {
                 console.log(response);
                 const context = linecanvasref.current.getContext("2d");

@@ -9,18 +9,19 @@ const VehicleOption = () => {
   const apiUrl = import.meta.env.PUBLIC_API_URL;
   useEffect(() => {
     axios.post(apiUrl+"/get-vel").then((response) => {
-      setListVel(response.data.listVel);
+      const listVelResponse = response.data.listVel;
+      setListVel(listVelResponse);
 
-      if (listVel.includes(2)) {
+      if (listVelResponse.includes(2)) {
         setIsCar(true);
       }
-      if (listVel.includes(7)) {
+      if (listVelResponse.includes(7)) {
         setIsTruck(true);
       }
-      if (listVel.includes(3)) {
+      if (listVelResponse.includes(3)) {
         setIsBike(true);
       }
-      if (listVel.includes(5)) {
+      if (listVelResponse.includes(5)) {
         setIsBus(true);
       }
     });

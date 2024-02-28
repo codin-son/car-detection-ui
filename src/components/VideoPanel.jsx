@@ -2,6 +2,7 @@ import { useRef, useEffect, useState } from "react";
 import SwapCamBtn from "./SwapCamBtn";
 import GridVidPanel from "./GridVidPanel";
 import LineROIPanel from "./LineROIPanel";
+import PolygonROIPanel from "./PolygonROIPanel";
 const VideoPanel = () => {
   const videoCanvasRef = useRef(null);
   const apiUrl = import.meta.env.PUBLIC_API_URL;
@@ -71,12 +72,18 @@ const VideoPanel = () => {
           issetroi={issetroi}
           setissetroi={setissetroi}
         />
-        <LineROIPanel
+        <PolygonROIPanel
+        cw={1280}
+        ch={720}
+        issetroi={issetroi}
+        setissetroi={setissetroi} // Pass setissetroi as a prop here
+         />
+        {/* <LineROIPanel
           cw={1280}
           ch={720}
           issetroi={issetroi}
           setissetroi={setissetroi} // Pass setissetroi as a prop here
-        />
+        /> */}
         <canvas
           className="rounded-lg mb-5"
           ref={videoCanvasRef}

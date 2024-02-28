@@ -4,19 +4,24 @@ import axios from 'axios';
 const ModelConfidenceRange = () => {
   const [value, setValue] = useState(0.2); // initial value is 0.2
   const apiUrl = import.meta.env.PUBLIC_API_URL;
-  useEffect(()=>{
-    axios.get(apiUrl+`/set-conf?conf=${value}`,)
-    .then(response => {
-      console.log(response.data);
-    })
-    .catch(error => {
-      console.error('There was an error!', error);
-    });
 
-  },[value])
+  useEffect(() => {
+    axios.get(apiUrl + `/get-conf`).then((response) => {
+      setValue(response.data.conf);
+    });
+  }, []);
 
   const handleChange = (event) => {
-    setValue(event.target.value);
+    const newValue = parseFloat(event.target.value);
+    setValue(newValue);
+    axios
+      .get(apiUrl + `/set-conf?conf=${newValue}`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error("There was an error!", error);
+      });
   };
 
 
@@ -35,24 +40,12 @@ const ModelConfidenceRange = () => {
       <input
         type="range"
         min={0.0}
-        max="1.0"
+        max={1.0}
         value={value}
-        onChange={handleChange}
         className="range"
-        step="0.1"
+        onChange={handleChange}
+        step={0.1}
       />
-      <div className="w-full flex justify-between text-xs px-2">
-        <span>|</span>
-        <span>|</span>
-        <span>|</span>
-        <span>|</span>
-        <span>|</span>
-        <span>|</span>
-        <span>|</span>
-        <span>|</span>
-        <span>|</span>
-        <span>|</span>
-      </div>
     </>
   );
 };

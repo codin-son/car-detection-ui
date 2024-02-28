@@ -45,18 +45,6 @@ const IOURange = () => {
         step={0.1}
 
       />
-      <div className="w-full flex justify-between text-xs px-2">
-        <span>|</span>
-        <span>|</span>
-        <span>|</span>
-        <span>|</span>
-        <span>|</span>
-        <span>|</span>
-        <span>|</span>
-        <span>|</span>
-        <span>|</span>
-        <span>|</span>
-      </div>
     </div>
   );
 };
