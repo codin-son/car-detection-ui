@@ -1,0 +1,22 @@
+---
+import '../style.css';
+import VideoPanel from '../components/VideoPanel';
+import Navbar from  '../components/Navbar';
+import SidePanel from '../components/SidePanel';
+---
+
+<html lang="en">
+<head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width"/>
+	<meta name="generator" content={Astro.generator}/>
+	<title>Astro</title>
+</head>
+<body class="w-screen h-screen overflow-x-hidden">
+	<Navbar />
+	<div class="mx-16 flex flex-row">
+		<VideoPanel client:load/>
+		<SidePanel client:load/>
+	</div>
+</body>
+</html>
