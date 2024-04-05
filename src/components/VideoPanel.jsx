@@ -1,15 +1,13 @@
 import { useRef, useEffect, useState } from "react";
-import SwapCamBtn from "./SwapCamBtn";
 import GridVidPanel from "./GridVidPanel";
 import LineROIPanel from "./LineROIPanel";
 import PolygonROIPanel from "./PolygonROIPanel";
-const VideoPanel = () => {
+const VideoPanel = ({issetLine,setissetLine,issetPoly,setissetPoly}) => {
   const videoCanvasRef = useRef(null);
   const apiUrl = import.meta.env.PUBLIC_API_URL;
-  const urlBig = apiUrl + "/detection";
+  const urlBig = apiUrl + "/video";
 
-  const [issetLine, setissetLine] = useState(false);
-  const [issetPoly, setissetPoly] = useState(false);
+
   const [getcw, setgetcw] = useState(0);
   const [getch, setgetch] = useState(0);
 
@@ -19,13 +17,7 @@ const VideoPanel = () => {
     imageBig.crossOrigin = "anonymous";
   }
 
-  const startSetLine = () => {
-    setissetLine(true);
-  };
 
-  const startSetPoly = () => {
-    setissetPoly(true);
-  };
 
   useEffect(() => {
     if (videoCanvasRef.current.getContext("2d") === null) {
@@ -83,13 +75,15 @@ const VideoPanel = () => {
           cw={1280}
           ch={720}
           issetPoly={issetPoly}
-          setissetPoly={setissetPoly} // Pass setissetLine as a prop here
+          setissetPoly={setissetPoly}
+          issetLine={issetLine}
         />
         <LineROIPanel
           cw={1280}
           ch={720}
           issetLine={issetLine}
-          setissetLine={setissetLine} // Pass setissetLine as a prop here
+          setissetLine={setissetLine}
+          issetPoly={issetPoly}
         />
         <canvas
           className="rounded-lg mb-5"
@@ -98,25 +92,7 @@ const VideoPanel = () => {
           height={720}
         ></canvas>
       </div>
-      <div className="flex flex-row gap-2">
-        <button
-          className="btn btn-primary setLine"
-          id="setLine"
-          onClick={startSetLine}
-          disabled={issetLine} // Add this line
-        >
-          Set Line
-        </button>
-        <button
-          className="btn btn-primary addroi"
-          id="addROI"
-          onClick={startSetPoly}
-          disabled={issetLine} // Add this line
-        >
-          Set Polygon
-        </button>
-        <SwapCamBtn />
-      </div>
+
     </div>
   );
 };

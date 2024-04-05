@@ -31,6 +31,7 @@ const GridVidPanel = ({cw,ch, issetLine, issetPoly}) => {
   return (
     <canvas
       className="rounded-lg mb-5"
+      id="gridCanvas"
       ref={gridCanvasRef}
       width={1280}
       height={720}

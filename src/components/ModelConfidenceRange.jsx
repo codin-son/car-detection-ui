@@ -29,7 +29,7 @@ const ModelConfidenceRange = () => {
   return (
     <>
       <div className="flex justify-start items-center">
-        <div className="me-2">Model Confidence Percentage</div>
+        <div className="me-2 ">Model Confidence Percentage</div>
         <div
           className="tooltip"
           data-tip="This configuration for adjust the confidence level of detection"

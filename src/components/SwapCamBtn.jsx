@@ -2,7 +2,7 @@ import axios from "axios";
 const SwapCamBtn = () =>{
     const apiUrl = import.meta.env.PUBLIC_API_URL;
     const nextCam = () =>{
-        axios.get(apiUrl+'/next-cam')
+        axios.get(apiUrl+'/next_cam')
         .then(res=>{
             console.log(res.data);
         })
@@ -11,7 +11,7 @@ const SwapCamBtn = () =>{
         })
     }
     const prevCam = () =>{
-        axios.get(apiUrl+'/prev-cam')
+        axios.get(apiUrl+'/prev_cam')
         .then(res=>{
             console.log(res.data);
         })
@@ -20,9 +20,9 @@ const SwapCamBtn = () =>{
         })
     }
     return(
-        <div>
-            <button className="btn btn-primary me-2" onClick={prevCam}>Previous Camera</button>
-            <button className="btn btn-primary" onClick={nextCam}>Next Camera</button>
+        <div className="grid grid-cols-2 gap-2 mt-2">
+            <button className="btn btn-primary btn-block" onClick={prevCam}>Previous Camera</button>
+            <button className="btn btn-primary btn-block" onClick={nextCam}>Next Camera</button>
         </div>
     )
 

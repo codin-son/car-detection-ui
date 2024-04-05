@@ -27,7 +27,7 @@ const IOURange = () => {
   return (
     <div>
       <div className="flex justify-start items-center">
-        <div className="me-2">Intersection Over Union Percentage</div>
+        <div className="me-2 mb-2">Intersection Over Union Percentage</div>
         <div
           className="tooltip"
           data-tip="This configuration for remove overlap detection"

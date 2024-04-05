@@ -75,7 +75,7 @@ const VehicleOption = () => {
   return (
     <div>
       <>
-        <p>List Vehicle Detection</p>
+        <p className="mb-2">List Vehicle Detection</p>
         <div className="grid grid-cols-8 gap-2">
           <div className="col-span-2">
             <button

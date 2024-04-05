@@ -1,8 +1,7 @@
 ---
 import '../style.css';
-import VideoPanel from '../components/VideoPanel';
 import Navbar from  '../components/Navbar';
-import SidePanel from '../components/SidePanel';
+import Content from './Content'
 ---
 
 <html lang="en">
@@ -12,11 +11,9 @@ import SidePanel from '../components/SidePanel';
 	<meta name="generator" content={Astro.generator}/>
 	<title>Astro</title>
 </head>
-<body class="w-screen h-screen overflow-x-hidden">
+<body class="w-screen h-screen overflow-x-hidden overflow-y-hidden">
 	<Navbar />
-	<div class="mx-16 flex flex-row">
-		<VideoPanel client:load/>
-		<SidePanel client:load/>
-	</div>
+	<Content client:load/>
+
 </body>
 </html>
