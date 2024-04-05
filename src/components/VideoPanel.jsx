@@ -2,64 +2,54 @@ import { useRef, useEffect, useState } from "react";
 import GridVidPanel from "./GridVidPanel";
 import LineROIPanel from "./LineROIPanel";
 import PolygonROIPanel from "./PolygonROIPanel";
-const VideoPanel = ({issetLine,setissetLine,issetPoly,setissetPoly}) => {
+
+const VideoPanel = ({ issetLine, setissetLine, issetPoly, setissetPoly }) => {
   const videoCanvasRef = useRef(null);
   const apiUrl = import.meta.env.PUBLIC_API_URL;
-  const urlBig = apiUrl + "/video";
-
-
+  const urlBig = "ws://localhost:9099/video_feed";
   const [getcw, setgetcw] = useState(0);
   const [getch, setgetch] = useState(0);
-
-  let imageBig;
-  if (typeof window !== "undefined") {
-    imageBig = new Image();
-    imageBig.crossOrigin = "anonymous";
-  }
-
-
 
   useEffect(() => {
     if (videoCanvasRef.current.getContext("2d") === null) {
       return;
     }
+
     const context = videoCanvasRef.current.getContext("2d");
-    let timeoutId;
-    let imageLoaded = false;
 
-    imageBig.onload = () => {
-      imageLoaded = true;
-      const cw = videoCanvasRef.current.width;
-      const ch = videoCanvasRef.current.height;
-      setgetch(ch);
-      setgetcw(cw);
-      context.clearRect(0, 0, cw, ch);
-      if (imageBig.complete) {
-        context.drawImage(imageBig, 0, 0, cw, ch);
-      }
-    };
-    imageBig.onerror = () => {
-      console.error("Failed to load image");
+    const socket = new WebSocket(urlBig);
+
+    socket.onopen = () => {
+      console.log("WebSocket connection established");
     };
 
-    imageBig.src = urlBig;
+    socket.onmessage = (event) => {
+      const imageData = event.data;
+      const image = new Image();
+      image.onload = () => {
+        const cw = videoCanvasRef.current.width;
+        const ch = videoCanvasRef.current.height;
+        setgetch(ch);
+        setgetcw(cw);
+        context.clearRect(0, 0, cw, ch);
+        context.drawImage(image, 0, 0, cw, ch);
+      };
+      image.src = 'data:image/jpeg;base64,' + imageData;
+    };
 
-    const canvasInterval = setInterval(() => {
-      if (imageLoaded) {
-        try {
-          const cw = videoCanvasRef.current.width;
-          const ch = videoCanvasRef.current.height;
-          context.clearRect(0, 0, cw, ch);
-          context.drawImage(imageBig, 0, 0, cw, ch);
-        } catch (error) {}
-      }
-    }, 10);
+    socket.onerror = (error) => {
+      console.error("WebSocket error:", error);
+    };
+
+    socket.onclose = () => {
+      console.log("WebSocket connection closed");
+    };
+
     return () => {
-      clearInterval(canvasInterval);
-      clearTimeout(timeoutId);
-      imageBig.src = "";
+      socket.close();
     };
   }, []);
+
   return (
     <div>
       <div>
@@ -92,7 +82,6 @@ const VideoPanel = ({issetLine,setissetLine,issetPoly,setissetPoly}) => {
           height={720}
         ></canvas>
       </div>
-
     </div>
   );
 };

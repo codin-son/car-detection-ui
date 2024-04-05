@@ -19,7 +19,7 @@ const SidePanel = ({ issetLine, issetPoly, setissetLine, setissetPoly }) => {
   };
   return (
     <div className=" h-screen  mx-5">
-      <StatisticPanel />
+      {/* <StatisticPanel /> */}
       <ModelConfigPanel />
       <button
         className={`btn btn-block ${issetLine ? "btn-neutral" : "btn-primary mt-5"}`}
