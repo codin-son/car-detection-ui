@@ -9,7 +9,7 @@ const ModelConfigPanel = () => {
           <h2 className="card-title">Model Configuration Panel</h2>
           <VehicleOption />
           <ModelConfidenceRange />
-          <IOURange />
+          {/* <IOURange /> */}
         </div>
       </div>
     </>

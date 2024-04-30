@@ -11,18 +11,20 @@ const IOURange = () => {
     });
   }, []);
 
-  const handleChange = (event) => {
-    const newValue = parseFloat(event.target.value);
-    setValue(newValue);
-    axios
-      .get(apiUrl + `/set-iou?iou=${newValue}`)
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.error("There was an error!", error);
-      });
-  };
+const handleChange = (event) => {
+  const newValue = parseFloat(event.target.value);
+  axios
+    .get(apiUrl + `/set-iou?iou=${newValue}`)
+    .then((response) => {
+      console.log("IOU value set to", newValue);
+      console.log(response.data);
+      // Update the value state only after the axios.get request has completed
+      setValue(response.data.iou);
+    })
+    .catch((error) => {
+      console.error("There was an error!", error);
+    });
+};
 
   return (
     <div>
@@ -35,16 +37,25 @@ const IOURange = () => {
           <IoMdInformationCircleOutline />
         </div>
       </div>
-      <input
-        type="range"
-        min={0.0}
-        max={1.0}
+      <select
+        className="select select-bordered w-full bg-slate-200"
         value={value}
-        className="range"
         onChange={handleChange}
-        step={0.1}
-
-      />
+      >
+        <option disabled selected>
+          Choose IOU Value
+        </option>
+        <option>0.1</option>
+        <option>0.2</option>
+        <option>0.3</option>
+        <option>0.4</option>
+        <option>0.5</option>
+        <option>0.6</option>
+        <option>0.7</option>
+        <option>0.8</option>
+        <option>0.9</option>
+        <option>1.0</option>
+      </select>
     </div>
   );
 };
